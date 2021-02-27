@@ -1,7 +1,7 @@
 /*
  * @Author: dongpx
  * @Date: 2021-01-25 22:37:39
- * @LastEditTime: 2021-02-27 10:58:16
+ * @LastEditTime: 2021-02-27 15:06:01
  * @LastEditors: dongpx
  * @Description:
  * @FilePath: /realworld-nuxtjs/nuxt.config.js
@@ -67,8 +67,8 @@ module.exports = {
 
   server: {
     host: '0.0.0.0',
-    port: 3000
-  }
+    port: 3000,
+  },
   // 注册插件
   plugins: ['~/plugins/request.js', '~/plugins/dayjs.js'],
 }
