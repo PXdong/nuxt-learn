@@ -1,8 +1,8 @@
 <!--
  * @Author: your name
  * @Date: 2021-01-25 22:32:22
- * @LastEditTime: 2021-02-06 21:10:35
- * @LastEditors: Please set LastEditors
+ * @LastEditTime: 2021-03-03 13:28:01
+ * @LastEditors: dongpx
  * @Description: In User Settings Edit
  * @FilePath: /realworld-nuxtjs/pages/layout/index.vue
 -->
@@ -30,10 +30,7 @@
             </li>
             <li class="nav-item">
               <nuxt-link class="nav-link" to="/profile/123">
-                <img
-                  class="user-pic"
-                  src="http://toutiao.meiduo.site/FtNcS8sKFSYQbtBbd40eFTL6lAs_"
-                />
+                <img class="user-pic" :src="user.image" />
                 {{ user.username }}
               </nuxt-link>
             </li>
