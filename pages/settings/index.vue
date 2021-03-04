@@ -1,7 +1,7 @@
 <!--
  * @Author: your name
  * @Date: 2021-01-25 23:09:45
- * @LastEditTime: 2021-03-03 13:30:18
+ * @LastEditTime: 2021-03-04 12:51:25
  * @LastEditors: dongpx
  * @Description: In User Settings Edit
  * @FilePath: /realworld-nuxtjs/pages/settings/index.vue
@@ -68,6 +68,7 @@
 
 <script>
   import { updateUser, getUserInfo } from '@/api/user'
+  const Cookie = process.client ? require('js-cookie') : undefined
 
   export default {
     middleware: 'authenticated',
@@ -99,6 +100,7 @@
         }
 
         this.$store.commit('setUser', user)
+        Cookie.set('user', user)
       },
     },
   }

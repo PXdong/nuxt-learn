@@ -1,7 +1,7 @@
 <!--
  * @Author: your name
  * @Date: 2021-01-25 22:32:22
- * @LastEditTime: 2021-03-03 13:28:01
+ * @LastEditTime: 2021-03-03 13:50:36
  * @LastEditors: dongpx
  * @Description: In User Settings Edit
  * @FilePath: /realworld-nuxtjs/pages/layout/index.vue
@@ -29,7 +29,7 @@
               </nuxt-link>
             </li>
             <li class="nav-item">
-              <nuxt-link class="nav-link" to="/profile/123">
+              <nuxt-link class="nav-link" :to="`/profile/${user.username}`">
                 <img class="user-pic" :src="user.image" />
                 {{ user.username }}
               </nuxt-link>

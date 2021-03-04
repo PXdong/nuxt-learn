@@ -1,7 +1,7 @@
 <!--
  * @Author: dongpx
  * @Date: 2021-01-25 23:06:41
- * @LastEditTime: 2021-02-06 21:36:06
+ * @LastEditTime: 2021-03-03 14:09:52
  * @LastEditors: dongpx
  * @Description: 
  * @FilePath: /realworld-nuxtjs/pages/profile/index.vue
@@ -12,16 +12,26 @@
       <div class="container">
         <div class="row">
           <div class="col-xs-12 col-md-10 offset-md-1">
-            <img src="http://i.imgur.com/Qr71crq.jpg" class="user-img" />
-            <h4>Eric Simons</h4>
+            <img :src="profile.image" class="user-img" />
+            <h4>{{ profile.username }}</h4>
             <p>
-              Cofounder @GoThinkster, lived in Aol's HQ for a few months, kinda
-              looks like Peeta from the Hunger Games
+              {{ profile.bio }}
             </p>
-            <button class="btn btn-sm btn-outline-secondary action-btn">
+            <button
+              v-if="user.username != profile.username"
+              class="btn btn-sm btn-outline-secondary action-btn"
+            >
               <i class="ion-plus-round"></i>
               &nbsp; Follow Eric Simons
             </button>
+            <nuxt-link
+              v-else
+              :to="{ name: 'settings' }"
+              class="btn btn-sm btn-outline-secondary action-btn"
+            >
+              <i class="ion-plus-round"></i>
+              &nbsp; Edit Profile Settings
+            </nuxt-link>
           </div>
         </div>
       </div>
@@ -90,9 +100,20 @@
 </template>
 
 <script>
+  import { getProfile } from '@/api/user'
+
   export default {
     middleware: 'authenticated',
     name: 'UserProfile',
+    async asyncData({ params, store }) {
+      const { data } = await getProfile(params.username)
+      const { profile } = data
+
+      return {
+        profile,
+        user: store.state.user,
+      }
+    },
   }
 </script>
 

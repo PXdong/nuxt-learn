@@ -1,7 +1,7 @@
 <!--
  * @Author: dongpx
  * @Date: 2021-01-25 23:12:26
- * @LastEditTime: 2021-02-06 21:33:40
+ * @LastEditTime: 2021-03-04 12:52:51
  * @LastEditors: dongpx
  * @Description: 
  * @FilePath: /realworld-nuxtjs/pages/editor/index.vue
@@ -11,10 +11,11 @@
     <div class="container page">
       <div class="row">
         <div class="col-md-10 offset-md-1 col-xs-12">
-          <form>
+          <form @submit.prevent="onSubmit">
             <fieldset>
               <fieldset class="form-group">
                 <input
+                  v-model="article.title"
                   type="text"
                   class="form-control form-control-lg"
                   placeholder="Article Title"
@@ -22,6 +23,7 @@
               </fieldset>
               <fieldset class="form-group">
                 <input
+                  v-model="article.description"
                   type="text"
                   class="form-control"
                   placeholder="What's this article about?"
@@ -29,6 +31,7 @@
               </fieldset>
               <fieldset class="form-group">
                 <textarea
+                  v-model="article.body"
                   class="form-control"
                   rows="8"
                   placeholder="Write your article (in markdown)"
@@ -42,10 +45,7 @@
                 />
                 <div class="tag-list"></div>
               </fieldset>
-              <button
-                class="btn btn-lg pull-xs-right btn-primary"
-                type="button"
-              >
+              <button class="btn btn-lg pull-xs-right btn-primary">
                 Publish Article
               </button>
             </fieldset>
@@ -57,10 +57,29 @@
 </template>
 
 <script>
+  import { createArticle } from '@/api/article'
+
   // 在路由匹配组件渲染之前会先执行中间件处理
   export default {
     middleware: 'authenticated',
     name: 'EditorIndex',
+    data() {
+      return {
+        article: {
+          title: '',
+          description: '',
+          body: '',
+          tagList: [],
+        },
+      }
+    },
+    methods: {
+      async onSubmit() {
+        console.log('this.article', this.article)
+        await createArticle(this.article)
+        this.$router.go(-1)
+      },
+    },
   }
 </script>
 

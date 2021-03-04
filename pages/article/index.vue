@@ -1,7 +1,7 @@
 <!--
  * @Author: dongpx
  * @Date: 2021-01-25 23:13:58
- * @LastEditTime: 2021-02-27 10:39:58
+ * @LastEditTime: 2021-03-03 13:42:17
  * @LastEditors: dongpx
  * @Description: 
  * @FilePath: /realworld-nuxtjs/pages/article/index.vue
@@ -29,7 +29,7 @@
 
       <div class="row">
         <div class="col-xs-12 col-md-8 offset-md-2">
-          <article-comments :article="article"/>
+          <article-comments :article="article" />
         </div>
       </div>
     </div>

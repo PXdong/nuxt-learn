@@ -1,7 +1,7 @@
 /*
  * @Author: dongpx
  * @Date: 2021-02-06 21:48:52
- * @LastEditTime: 2021-02-27 10:41:08
+ * @LastEditTime: 2021-03-03 14:15:21
  * @LastEditors: dongpx
  * @Description: 获取公共的文章列表
  * @FilePath: /realworld-nuxtjs/api/article.js
@@ -55,5 +55,23 @@ export const getComments = (slug) => {
   return request({
     method: 'GET',
     url: `/api/articles/${slug}/comments`,
+  })
+}
+
+// 创建文章
+export const createArticle = (data) => {
+  return request({
+    method: 'POST',
+    url: '/api/articles',
+    data,
+  })
+}
+
+// 更新文章
+export const updateArticle = (slug, data) => {
+  return request({
+    method: 'PUT',
+    url: `/api/articles/${slug}`,
+    data,
   })
 }
