@@ -1,7 +1,11 @@
 <!--
  * @Author: dongpx
  * @Date: 2021-01-25 23:12:26
+<<<<<<< HEAD
  * @LastEditTime: 2021-03-04 12:52:51
+=======
+ * @LastEditTime: 2021-02-06 21:33:40
+>>>>>>> ea504b820e36bea107da94fdfd40c015e3bd3a4c
  * @LastEditors: dongpx
  * @Description: 
  * @FilePath: /realworld-nuxtjs/pages/editor/index.vue
@@ -11,11 +15,18 @@
     <div class="container page">
       <div class="row">
         <div class="col-md-10 offset-md-1 col-xs-12">
+<<<<<<< HEAD
           <form @submit.prevent="onSubmit">
             <fieldset>
               <fieldset class="form-group">
                 <input
                   v-model="article.title"
+=======
+          <form>
+            <fieldset>
+              <fieldset class="form-group">
+                <input
+>>>>>>> ea504b820e36bea107da94fdfd40c015e3bd3a4c
                   type="text"
                   class="form-control form-control-lg"
                   placeholder="Article Title"
@@ -23,7 +34,10 @@
               </fieldset>
               <fieldset class="form-group">
                 <input
+<<<<<<< HEAD
                   v-model="article.description"
+=======
+>>>>>>> ea504b820e36bea107da94fdfd40c015e3bd3a4c
                   type="text"
                   class="form-control"
                   placeholder="What's this article about?"
@@ -31,7 +45,10 @@
               </fieldset>
               <fieldset class="form-group">
                 <textarea
+<<<<<<< HEAD
                   v-model="article.body"
+=======
+>>>>>>> ea504b820e36bea107da94fdfd40c015e3bd3a4c
                   class="form-control"
                   rows="8"
                   placeholder="Write your article (in markdown)"
