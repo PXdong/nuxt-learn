@@ -1,11 +1,7 @@
 /*
  * @Author: your name
  * @Date: 2021-01-27 23:53:24
-<<<<<<< HEAD
- * @LastEditTime: 2021-03-20 12:52:49
-=======
- * @LastEditTime: 2021-02-25 22:48:14
->>>>>>> ea504b820e36bea107da94fdfd40c015e3bd3a4c
+ * @LastEditTime: 2021-03-21 00:54:22
  * @LastEditors: dongpx
  * @Description: In User Settings Edit
  * @FilePath: /realworld-nuxtjs/api/user.js
@@ -52,5 +48,22 @@ export const getProfile = (username) => {
   return request({
     method: 'GET',
     url: `/api/profiles/${username}`,
+  })
+}
+
+// 关注用户
+export const followUser = (username) => {
+  return request({
+    method: 'POST',
+    url: `/api/profiles/${username}/follow`
+  })
+}
+
+
+// 取消关注
+export const unfollowUser= (username) => {
+  return request({
+    method: 'DELETE',
+    url: `/api/profiles/${username}/follow`
   })
 }

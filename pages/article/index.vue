@@ -1,11 +1,7 @@
 <!--
  * @Author: dongpx
  * @Date: 2021-01-25 23:13:58
-<<<<<<< HEAD
- * @LastEditTime: 2021-03-20 12:52:58
-=======
- * @LastEditTime: 2021-02-27 10:39:58
->>>>>>> ea504b820e36bea107da94fdfd40c015e3bd3a4c
+ * @LastEditTime: 2021-03-21 01:04:05
  * @LastEditors: dongpx
  * @Description: 
  * @FilePath: /realworld-nuxtjs/pages/article/index.vue
@@ -16,7 +12,13 @@
       <div class="container">
         <h1>{{ article.title }}</h1>
 
-        <article-meta :article="article" />
+        <article-meta 
+          :article="article"
+           :isMyArticle="isMyArticle" 
+           @on-delete-article="deleteArticle"
+           @on-toggle-follow-user="followUser"
+           @on-toggle-favorite-article="favoriteArticle"
+          />
       </div>
     </div>
 
@@ -28,12 +30,18 @@
       <hr />
 
       <div class="article-actions">
-        <article-meta :article="article" />
+        <article-meta 
+          :article="article" 
+          :isMyArticle="isMyArticle" 
+          @on-delete-article="deleteArticle"
+           @on-toggle-follow-user="followUser"
+           @on-toggle-favorite-article="favoriteArticle"
+         />
       </div>
 
       <div class="row">
         <div class="col-xs-12 col-md-8 offset-md-2">
-          <article-comments :article="article" />
+          <article-comments :article="article" :user="user" />
         </div>
       </div>
     </div>
@@ -41,7 +49,8 @@
 </template>
 
 <script>
-  import { getArticle } from '@/api/article'
+  import { getArticle, deleteArticle, addFavorite, deleteFavorite } from '@/api/article'
+  import { unfollowUser, followUser } from '@/api/user'
   import MarkdownIt from 'markdown-it'
   import ArticleMeta from './components/article-meta'
   import ArticleComments from './components/article-comments'
@@ -52,13 +61,18 @@
       ArticleMeta,
       ArticleComments,
     },
-    async asyncData({ params }) {
+    async asyncData({ params, store }) {
       const { data } = await getArticle(params.slug)
       const { article } = data
       const md = new MarkdownIt()
       article.body = md.render(article.body)
+      const user = store.state.user
+      const isMyArticle = article.author.username == user.username
+
       return {
         article,
+        user,
+        isMyArticle
       }
     },
     head() {
@@ -73,6 +87,33 @@
         ],
       }
     },
+    methods: {
+      async deleteArticle() {
+        await deleteArticle(this.article.slug)
+        this.$router.go(-1)
+      },
+      async followUser() {
+      console.log(this.article)
+      if (this.article.author.following) {
+        await unfollowUser(this.article.author.username)
+      } else {
+        await followUser(this.article.author.username)
+      }
+
+       const res = await getArticle(this.article.slug)
+       this.article = res.data.article
+      },
+      async favoriteArticle() {
+        if (this.article.favorited) {
+        await deleteFavorite(this.article.slug)
+      } else {
+        await addFavorite(this.article.slug)
+      }
+
+       const res = await getArticle(this.article.slug)
+       this.article = res.data.article
+      }
+    }
   }
 </script>
 

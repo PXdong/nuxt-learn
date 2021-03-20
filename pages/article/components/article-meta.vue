@@ -1,7 +1,7 @@
 <!--
  * @Author: dongpx
  * @Date: 2021-02-26 20:56:45
- * @LastEditTime: 2021-02-26 21:07:11
+ * @LastEditTime: 2021-03-21 00:47:48
  * @LastEditors: dongpx
  * @Description: 
  * @FilePath: /realworld-nuxtjs/pages/article/components/article-meta.vue
@@ -19,7 +19,6 @@
         ><img :src="article.author.image"
       /></nuxt-link>
       <div class="info">
-        <a href="" class="author">Eric Simons</a>
         <nuxt-link
           class="author"
           :to="{
@@ -32,25 +31,58 @@
         >
         <span class="date">{{ article.createdAt | date('MMM DD, YYYY') }}</span>
       </div>
+
+
+      <span v-if="isMyArticle">
+        <nuxt-link
+          :to="`/editor?slug=${article.slug}`"
+          class="btn btn-outline-secondary btn-sm"
+        >
+          <i class="ion-edit" /> Edit Article
+        </nuxt-link>
+        <button
+          class="btn btn-outline-danger btn-sm"
+          @click="$emit('on-delete-article')"
+        >
+          <i class="ion-trash-a" /> Delete Article
+        </button>
+      </span>
+
+      <span v-else>
       <button
-        class="btn btn-sm btn-outline-secondary"
+        class="btn btn-sm"
         :class="{
-          active: article.author.following,
+          'btn-outline-secondary': !article.author.following,
+          'btn-secondary': article.author.following,
         }"
+        @click="$emit('on-toggle-follow-user')"
       >
-        <i class="ion-plus-round"></i>
-        &nbsp; Follow Eric Simons <span class="counter">(10)</span>
+        <template v-if="article.author.following">
+          <i class="ion-minus-round" />
+          Unfollow
+        </template>
+
+        <template v-else>
+          <i class="ion-plus-round" />
+          Follow
+        </template>
       </button>
-      &nbsp;&nbsp;
+
       <button
-        class="btn btn-sm btn-outline-primary"
+        class="btn btn-sm"
         :class="{
-          active: article.favorited,
+          'btn-outline-primary': !article.favorited,
+          'btn-primary': article.favorited,
         }"
+        @click="$emit('on-toggle-favorite-article')"
       >
-        <i class="ion-heart"></i>
-        &nbsp; Favorite Post <span class="counter">(29)</span>
+        <i class="ion-heart" />
+        <span>{{ article.favorited ? 'Unfavorite' : 'Favorite' }}</span>
+        <span class="counter">({{ article.favoritesCount }})</span>
       </button>
+    </span>
+
+     
     </div>
   </div>
 </template>
@@ -63,6 +95,10 @@
         type: Object,
         required: true,
       },
+      isMyArticle: {
+        type: Boolean,
+        required: true
+      }
     },
   }
 </script>

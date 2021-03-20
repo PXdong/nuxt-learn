@@ -24,6 +24,7 @@
                 class="form-control form-control-lg"
                 type="text"
                 placeholder="Your Name"
+                :disabled="disabled"
                 required
               />
             </fieldset>
@@ -33,6 +34,7 @@
                 class="form-control form-control-lg"
                 type="email"
                 placeholder="Email"
+                :disabled="disabled"
                 required
               />
             </fieldset>
@@ -42,10 +44,11 @@
                 class="form-control form-control-lg"
                 type="password"
                 placeholder="Password"
+                :disabled="disabled"
                 required
               />
             </fieldset>
-            <button class="btn btn-lg btn-primary pull-xs-right">
+            <button class="btn btn-lg btn-primary pull-xs-right" :disabled="disabled">
               {{ isLogin ? 'Sign in' : 'Sign up' }}
             </button>
           </form>
@@ -71,6 +74,7 @@
           password: '',
         },
         errors: {},
+        disabled: false
       }
     },
     computed: {
@@ -81,6 +85,7 @@
     methods: {
       async onSubmit() {
         // 提交表单请求登录
+        this.disabled = true
         try {
           const { data } = this.isLogin
             ? await login({
@@ -98,6 +103,7 @@
         } catch (error) {
           console.log(error)
           this.errors = error.response.data.errors
+          this.disabled = false
         }
       },
     },

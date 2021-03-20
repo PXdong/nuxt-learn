@@ -1,7 +1,7 @@
 <!--
  * @Author: your name
  * @Date: 2021-01-25 23:09:45
- * @LastEditTime: 2021-03-20 12:53:29
+ * @LastEditTime: 2021-03-20 22:17:49
  * @LastEditors: dongpx
  * @Description: In User Settings Edit
  * @FilePath: /realworld-nuxtjs/pages/settings/index.vue
@@ -60,6 +60,10 @@
               </button>
             </fieldset>
           </form>
+
+          <hr>
+
+          <button @click="logout" class="btn btn-outline-danger">Or click here to logout.</button>
         </div>
       </div>
     </div>
@@ -102,6 +106,11 @@
         this.$store.commit('setUser', user)
         Cookie.set('user', user)
       },
+      logout() {
+        this.$store.commit('setUser', null)
+        Cookie.set('user', null)
+        this.$router.push('/')
+      }
     },
   }
 </script>
